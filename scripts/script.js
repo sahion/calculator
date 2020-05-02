@@ -27,7 +27,7 @@ function multiply(num1,num2){
     return num1*num2;
 }
 function divide(num1,num2){
-    return num1/num2;
+    return (num2!=0)? Math.floor(num1/num2*100)/100:(alert("You shouldn't divide by zero") || "0");
 }
 function operate(num1=0,num2=0,func){
     return (func) ?  func(num1,num2): 0;
