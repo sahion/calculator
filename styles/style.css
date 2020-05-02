@@ -1,0 +1,50 @@
+.buttons{
+
+
+    padding-top:50px;
+    padding-left:30px;
+    width:470px;
+    height:350px;
+    display: grid;
+    grid-template-columns: 67% auto;
+}
+
+.main{
+    margin:0 auto;
+    width:500px;
+    height:450px;
+    border:1px solid black;
+    
+    
+}
+.result{
+    width:400px;
+    text-align:right;
+    margin: 0 auto;
+    font-size:25px;
+}
+.divResult{
+    padding-top:20px;
+    margin:0 auto;
+    width:400px;
+    height:40px;
+}
+.btn{
+    width: 100px;
+    height:60px;
+    font-size:25px;
+}
+.numberButtons{
+    
+    display:grid;
+    grid-template-columns:auto auto auto;
+}
+.signsButtons{
+    padding-left:15px;
+    display:grid;
+    grid-template-rows:auto auto auto auto;
+}
+
+.buttons{
+
+}
