@@ -30,7 +30,7 @@ function divide(num1,num2){
     return num1/num2;
 }
 function operate(num1=0,num2=0,func){
-    return func(num1,num2);
+    return (func) ?  func(num1,num2): 0;
 }
 
 function choiceOperation(sign){
@@ -46,15 +46,16 @@ function choiceOperation(sign){
 const numbersDiv = document.querySelector('.numberButtons');
 const signsDiv = document.querySelector('.signsButtons');
 const inputField = document.querySelector('.result');
-let chosenOperation="";
 
 
+let chosenOperation;
 let transition = false;
 let buffer = 0;
 let numbers = [1,2,3,4,5,6,7,8,9,'AC',0,'=',];
 let signs = "+-*/";
 createCalc();
 const buttons = document.querySelectorAll('.btn');
+let additional;
 
 
 buttons.forEach(button => button.addEventListener('click',function(){
@@ -71,17 +72,18 @@ buttons.forEach(button => button.addEventListener('click',function(){
         }
     } else if ('+-*/'.indexOf(button.textContent)!=-1){
         transition=true;
-        buffer=+inputField.value;
+        buffer = (chosenOperation) ? operate(buffer,inputField.value,choiceOperation(chosenOperation)):+inputField.value;
         chosenOperation=button.textContent;
-        console.log(buffer);
+        additional ="";
     } else if (button.textContent=="="){
-        inputField.value=operate(buffer,inputField.value,choiceOperation(chosenOperation));
-        console.log(buffer);
+         additional = (!additional)?  inputField.value: additional;
+        buffer=inputField.value=operate(buffer,additional,choiceOperation(chosenOperation));
     } else if (button.textContent=="AC"){
         inputField.value="0";
         buffer=0;
         transition=false;
         chosenOperation="";
+        additional ="";
     }
     
             
