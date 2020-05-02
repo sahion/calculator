@@ -67,7 +67,6 @@ buttons.forEach(button => button.addEventListener('click',function(){
             transition=false;
             //buffer = operate(inputField.value,buffer,choiceOperation(chosenOperation));
             inputField.value=button.textContent;
-            console.log(buffer);
 
         }
     } else if ('+-*/'.indexOf(button.textContent)!=-1){
