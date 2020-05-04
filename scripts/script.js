@@ -27,7 +27,7 @@ function multiply(num1,num2){
     return num1*num2;
 }
 function divide(num1,num2){
-    return (num2!=0)? Math.floor(num1/num2*100)/100:(alert("You shouldn't divide by zero") || "0");
+    return (num2!=0)? Math.floor(num1/num2*100)/100:(alert("You shouldn't divide by zero") || num1);
 }
 function operate(num1=0,num2=0,func){
     return (func) ?  func(num1,num2): 0;
@@ -42,6 +42,63 @@ function choiceOperation(sign){
     }
 }
 
+function pressNumber(e){
+    if (!transition){
+        (inputField.value!="0")? inputField.value+=e.target.textContent:inputField.value=e.target.textContent;
+        } else {
+            transition=false;
+
+            inputField.value+=e.target.textContent;
+            
+
+        }
+}
+function pressSign(e){
+   if (inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")){
+       secondOperand=inputField.value.slice(inputField.value.indexOf(`${chosenOperation} `)+2);
+       firstOperand = (secondOperand)  ? operate(firstOperand,secondOperand,choiceOperation(chosenOperation)) :firstOperand;
+       chosenOperation=e.target.textContent;
+       inputField.value=firstOperand+" " +chosenOperation+ " ";
+   } else {
+    firstOperand=inputField.value;
+    transition = true;
+    chosenOperation=e.target.textContent;
+    inputField.value+=` ${chosenOperation} `;
+
+}
+}
+
+function pressEqual(e) {
+    if (inputField.value.includes("+") || inputField.value.includes("-") || inputField.value.includes("*") || inputField.value.includes("/")){
+    secondOperand=inputField.value.slice(inputField.value.indexOf(`${chosenOperation} `)+2);   
+    }
+    firstOperand = (secondOperand)  ? operate(firstOperand,secondOperand,choiceOperation(chosenOperation)) :firstOperand;
+    inputField.value = firstOperand; 
+}
+
+function pressAC(e) {
+    firstOperand=0;
+    secondOperand=0;
+    chosenOperation="";
+    inputField.value="0";
+    transition=false;
+}
+
+function btnClick(e){
+
+    if ('0123456789'.indexOf(e.target.textContent)!=-1)
+        pressNumber(e);
+    else if ('+-*/'.indexOf(e.target.textContent)!=-1)
+        pressSign(e);
+    else if (e.target.textContent=="=")
+        pressEqual(e);
+    else if (e.target.textContent=="AC")
+        pressAC(e);
+        
+  
+}
+
+
 
 const numbersDiv = document.querySelector('.numberButtons');
 const signsDiv = document.querySelector('.signsButtons');
@@ -49,41 +106,18 @@ const inputField = document.querySelector('.result');
 
 
 let chosenOperation;
+let firstOperand;
+let secondOperand;
 let transition = false;
-let buffer = 0;
 let numbers = [1,2,3,4,5,6,7,8,9,'AC',0,'=',];
 let signs = "+-*/";
 createCalc();
 const buttons = document.querySelectorAll('.btn');
-let additional;
 
 
-buttons.forEach(button => button.addEventListener('click',function(){
 
-    if ('0123456789'.indexOf(button.textContent)!=-1){
-        if (!transition){
-        (inputField.value!="0")? inputField.value+=button.textContent:inputField.value=button.textContent;
-        } else {
-            transition=false;
-            //buffer = operate(inputField.value,buffer,choiceOperation(chosenOperation));
-            inputField.value=button.textContent;
 
-        }
-    } else if ('+-*/'.indexOf(button.textContent)!=-1){
-        transition=true;
-        buffer = (chosenOperation) ? operate(buffer,inputField.value,choiceOperation(chosenOperation)):+inputField.value;
-        chosenOperation=button.textContent;
-        additional ="";
-    } else if (button.textContent=="="){
-         additional = (!additional)?  inputField.value: additional;
-        buffer=inputField.value=operate(buffer,additional,choiceOperation(chosenOperation));
-    } else if (button.textContent=="AC"){
-        inputField.value="0";
-        buffer=0;
-        transition=false;
-        chosenOperation="";
-        additional ="";
-    }
-    
-            
-        }));
+buttons.forEach(button => button.addEventListener('click',btnClick));
+
+
+
