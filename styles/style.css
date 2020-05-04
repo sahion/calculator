@@ -1,3 +1,9 @@
+
+body{
+    background-image: url("../img/background.jpg");
+}
+
+
 .buttons{
 
 
@@ -13,8 +19,9 @@
     margin:0 auto;
     width:500px;
     height:450px;
-    border:1px solid black;
-    
+    border:3px solid white;
+    border-radius:10%;
+    background-color:#080629;
     
 }
 .result{
@@ -22,6 +29,8 @@
     text-align:right;
     margin: 0 auto;
     font-size:25px;
+    border-radius:10px;
+    border:3px solid #d45832;
 }
 .divResult{
     padding-top:20px;
@@ -33,18 +42,33 @@
     width: 100px;
     height:60px;
     font-size:25px;
+
 }
+
 .numberButtons{
     
     display:grid;
     grid-template-columns:auto auto auto;
 }
 .signsButtons{
-    padding-left:15px;
+    padding-left:35px;
     display:grid;
     grid-template-rows:auto auto auto auto;
+    
 }
 
-.buttons{
+.buttons .btn{
+    color:white;
+    border: 3px solid white;
+}
+.numberButtons .btn{
+    background-color:#d45832;
+    border-radius:10%;
+}
 
+.signsButtons .btn{
+    border-radius: 50%;
+    width:60%;
+
+    background-color:#d69232;
 }
