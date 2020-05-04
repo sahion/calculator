@@ -5,7 +5,7 @@ function createCalc(){
 for (i=0;i<numbers.length;i++){
     const number = document.createElement('button');
     number.textContent=numbers[i];
-    number.id=numbers[i];
+    number.id="btn"+numbers[i];
     number.classList.add("btn");
     numbersDiv.appendChild(number);
 }
@@ -84,6 +84,18 @@ function pressAC(e) {
     transition=false;
 }
 
+
+function addDot(e){
+    if (!inputField.value.includes(".") && '0123456789'.includes(inputField.value[inputField.value.length-1]))
+    inputField.value+=".";
+}
+
+function deleteLastNumber(e){
+    if ('0123456789'.includes(inputField.value[inputField.value.length-1]))
+    inputField.value=inputField.value.slice(0,inputField.value.length-1);
+}
+
+
 function btnClick(e){
 
     if ('0123456789'.indexOf(e.target.textContent)!=-1)
@@ -94,6 +106,10 @@ function btnClick(e){
         pressEqual(e);
     else if (e.target.textContent=="AC")
         pressAC(e);
+    else if (e.target.textContent=="<--")
+        deleteLastNumber(e);
+    else if (e.target.textContent==".")
+        addDot(e);
         
   
 }
@@ -109,8 +125,8 @@ let chosenOperation;
 let firstOperand;
 let secondOperand;
 let transition = false;
-let numbers = [1,2,3,4,5,6,7,8,9,'AC',0,'=',];
-let signs = "+-*/";
+let numbers = ['AC','<--',1,2,3,4,5,6,7,8,9,'.',0];
+let signs = "+-*/=";
 createCalc();
 const buttons = document.querySelectorAll('.btn');
 
